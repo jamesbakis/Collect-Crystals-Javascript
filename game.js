@@ -69,7 +69,7 @@ document.addEventListener('keydown', event=> {
 })
 
 setInterval(() => {time--
-    if (time <=0) {
+    if (time < 0) {
         return;
     }
     timer.textContent = "TIME " + time.toString()
