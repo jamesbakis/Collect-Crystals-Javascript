@@ -60,7 +60,7 @@ document.addEventListener('keydown', event=> {
         for (let i = 0; i < enemies.length; i++) {
             collision(enemies[i]);
         }
-        timer.textContent = "TIME " + time.toString()
+        
         if (time <= 0) {
             dead = true;
             timer.textContent = "TIMES UP!!!" + time.toString()
@@ -68,7 +68,13 @@ document.addEventListener('keydown', event=> {
     }
 })
 
-setInterval(() => {time--}, 1000)
+setInterval(() => {time--
+    if (time <=0) {
+        return;
+    }
+    timer.textContent = "TIME " + time.toString()
+    
+    }, 1000)
 
 function enemyMove() {
     for (let i = 0; i < enemies.length; i++) {
