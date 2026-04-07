@@ -9,6 +9,8 @@ let scoreVal = 0;
 let dead = false;
 let timer = document.getElementById("timer")
 let time = 60;
+let yell = new Audio("./audio/yell.mp3")
+let game_over = new Audio("./audio/game_over.mp3")
 document.addEventListener('keydown', event=> {
     console.log(event)
     if (dead) {
@@ -77,6 +79,23 @@ setInterval(() => {time--
     
     }, 1000)
 
+
+let colour = 0; 
+let instruction_heading = document.getElementById("instruction_heading");   
+setInterval(() => {colour += 1
+    if (colour % 3 == 0) {
+        instruction_heading.style.color = "red";
+        crystal.src = "./images/enemy_square.png"
+    } else if (colour % 3 == 2) {
+        instruction_heading.style.color = "green";
+        crystal.src = "./images/player_square.png"
+    } else {
+        instruction_heading.style.color = "blue";
+        crystal.src = "./images/crystal_square.png"
+    }
+    
+    }, 200)
+
 function enemyMove() {
     for (let i = 0; i < enemies.length; i++) {
         let pos = Math.floor(Math.random() * 4);
@@ -125,7 +144,8 @@ function collision(enemy) {
     if (enemy.style.top == player.style.top && enemy.style.left == player.style.left) {
         player.remove();
         dead = true;
-        score.textContent = "SCORE " + scoreVal.toString() + "\nREFRESH PAGE"
+        score.textContent = "SCORE " + scoreVal.toString() + "\nREFRESH PAGE";
+        game_over.play()
     }
 }
 
@@ -138,6 +158,7 @@ function spawn() {
         crystal.style.left = (y * 100).toString() + "px";
         scoreVal += 1;
         score.textContent = "SCORE " + scoreVal.toString();
+        yell.play()
     }
 }
 
