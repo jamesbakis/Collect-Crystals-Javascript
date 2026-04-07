@@ -121,6 +121,15 @@ document.addEventListener('touchend', e => {
   checkDirection();
 });
 
+document.addEventListener('touchstart', e => {
+  touchstartY = e.changedTouches[0].screenY;
+});
+
+document.addEventListener('touchend', e => {
+  touchendY = e.changedTouches[0].screenY;
+  checkDirection();
+});
+
 document.addEventListener('keydown', event=> {
     console.log(event)
     if (dead) {
