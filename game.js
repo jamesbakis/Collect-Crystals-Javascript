@@ -61,6 +61,25 @@ button.addEventListener("click", ()=> {
     
 })
 
+let touchstartX = 0;
+let touchendX = 0;
+
+function checkDirection() {
+    let top = parseInt(player.style.top); 
+    let left = parseInt(player.style.left);
+    if (touchendX < touchstartX - 50) console.log('Swiped Left');
+    if (touchendX > touchstartX + 50) console.log('Swiped Right');
+}
+
+document.addEventListener('touchstart', e => {
+  touchstartX = e.changedTouches[0].screenX;
+});
+
+document.addEventListener('touchend', e => {
+  touchendX = e.changedTouches[0].screenX;
+  checkDirection();
+});
+
 document.addEventListener('keydown', event=> {
     console.log(event)
     if (dead) {
@@ -68,8 +87,7 @@ document.addEventListener('keydown', event=> {
     }
     if(event.key.startsWith("Arrow")) {
         
-        let top = parseInt(player.style.top); 
-        let left = parseInt(player.style.left);
+        
         switch(event.key) {
             case "ArrowUp":
                 if (top == 0) {
