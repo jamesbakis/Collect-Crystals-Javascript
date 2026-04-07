@@ -63,18 +63,53 @@ button.addEventListener("click", ()=> {
 
 let touchstartX = 0;
 let touchendX = 0;
+let touchstartY = 0;
+let touchendY = 0;
 
 function checkDirection() {
     let top = parseInt(player.style.top); 
     let left = parseInt(player.style.left);
     if (touchendX < touchstartX - 50) {
         console.log('Swiped Left');
-        left -= 100;
+        if (left == 0) {
+            left += 600;    
+        } else {
+            left -= 100;
+        }
         player.style.left = left.toString() + "px";
 
     } 
         
-    if (touchendX > touchstartX + 50) console.log('Swiped Right');
+    if (touchendX > touchstartX + 50)  {
+        console.log('Swiped Right');
+        if (left == 600) {
+            left -= 600;    
+        } else {
+            left += 100;
+        }
+        player.style.left = left.toString() + "px";
+    }
+
+    if (touchendY < touchstartY - 50) {
+        console.log('Swiped Up');
+        if (top == 0) {
+            top += 600;    
+        } else {
+            top -= 100;
+        }
+        player.style.top = top.toString() + "px";
+
+    } 
+        
+    if (touchendY > touchstartY + 50)  {
+        console.log('Swiped Down');
+        if (top == 600) {
+            top -= 600;    
+        } else {
+            top += 100;
+        }
+        player.style.top = top.toString() + "px";
+    }
 }
 
 document.addEventListener('touchstart', e => {
