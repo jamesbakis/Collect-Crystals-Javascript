@@ -69,7 +69,7 @@ function checkDirection() {
     let left = parseInt(player.style.left);
     if (touchendX < touchstartX - 50) {
         console.log('Swiped Left');
-        left -+ 100;
+        left -= 100;
         player.style.left = left.toString() + "px";
 
     } 
