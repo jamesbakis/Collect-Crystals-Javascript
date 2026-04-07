@@ -67,7 +67,13 @@ let touchendX = 0;
 function checkDirection() {
     let top = parseInt(player.style.top); 
     let left = parseInt(player.style.left);
-    if (touchendX < touchstartX - 50) console.log('Swiped Left');
+    if (touchendX < touchstartX - 50) {
+        console.log('Swiped Left');
+        left -+ 100;
+        player.style.left = left.toString() + "px";
+
+    } 
+        
     if (touchendX > touchstartX + 50) console.log('Swiped Right');
 }
 
@@ -87,7 +93,8 @@ document.addEventListener('keydown', event=> {
     }
     if(event.key.startsWith("Arrow")) {
         
-        
+        let top = parseInt(player.style.top); 
+        let left = parseInt(player.style.left);
         switch(event.key) {
             case "ArrowUp":
                 if (top == 0) {
