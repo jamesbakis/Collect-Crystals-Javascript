@@ -5,21 +5,31 @@ let enemies = [enemy1, enemy2, enemy3]
 let enemy_animation = ["./images/enemy_square_smaller.png", "./images/enemy_square_smaller_smaller.png", ""]
 let player = document.getElementById("player")
 let crystal = document.getElementById("crystal")
+//Enemies, player and crystal
+
 let score = document.getElementById("score")
 let scoreVal = 0;
-let dead = false;
+//Score object
+
 let timer = document.getElementById("timer")
 let time = 60;
+//Timer object
+
+let instruction_heading = document.getElementById("instruction_heading");
+//Instruction heading
+
 let yell = new Audio("./audio/yell.mp3")
 let game_over = new Audio("./audio/game_over.mp3")
 let yoda_death = new Audio("./audio/yoda_death.mp3")
+// AUDIO NOT WORKING
 let enable_audio = document.getElementById("enable_audio")
 enable_audio.addEventListener("click", () => {
     yoda_death.play()
 })
+
 let interval_time = 400;
 let colour = 0; 
-let instruction_heading = document.getElementById("instruction_heading");   
+//Alternating colour of instruction heading and crystal   
 let colour_interval = setInterval(() => {colour += 1
     if (colour % 3 == 0) {
         instruction_heading.style.color = "red";
@@ -34,7 +44,9 @@ let colour_interval = setInterval(() => {colour += 1
     
     }, 400)
 
+let dead = false;
 let button = document.getElementById("difficulty_button");
+//Change how quickly colours alternate
 
 button.addEventListener("click", ()=> {
     if (interval_time == 400) {
@@ -130,14 +142,16 @@ function checkDirection() {
 }
 
 document.addEventListener('touchstart', e => {
-  touchstartX = e.changedTouches[0].screenX
-  touchstartY = e.changedTouches[0].screenY;
+    touchstartX = e.changedTouches[0].screenX
+    touchstartY = e.changedTouches[0].screenY;
 });
 
 document.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX
-  touchendY = e.changedTouches[0].screenY;
-  checkDirection();
+    touchendX = e.changedTouches[0].screenX
+    touchendY = e.changedTouches[0].screenY;
+    checkDirection();
+    
+  
 });
 
 document.addEventListener('keydown', event=> {
