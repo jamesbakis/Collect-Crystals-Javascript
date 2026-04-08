@@ -199,6 +199,7 @@ setInterval(() => {time--
     if (time <= 0) {
             dead = true;
             timer.textContent = "TIMES UP!!!";
+            game_over.play()
         }
 
     }, 1000)
