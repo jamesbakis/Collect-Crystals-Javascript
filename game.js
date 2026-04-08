@@ -113,7 +113,11 @@ function checkDirection() {
             player.style.top = top.toString() + "px";
         }
     }
-    
+    spawn()
+    enemyMove();
+    for (let i = 0; i < enemies.length; i++) {
+        collision(enemies[i]);
+    }
 
     
 }
