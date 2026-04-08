@@ -13,6 +13,10 @@ let time = 60;
 let yell = new Audio("./audio/yell.mp3")
 let game_over = new Audio("./audio/game_over.mp3")
 let yoda_death = new Audio("./audio/yoda_death.mp3")
+let enable_audio = document.getElementById("enable_audio")
+enable_audio.addEventListener("click", () => {
+    yoda_death.play()
+})
 let interval_time = 400;
 let colour = 0; 
 let instruction_heading = document.getElementById("instruction_heading");   
