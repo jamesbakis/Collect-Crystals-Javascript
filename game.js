@@ -65,67 +65,66 @@ let touchstartX = 0;
 let touchendX = 0;
 let touchstartY = 0;
 let touchendY = 0;
+let diff = 50;
 
 function checkDirection() {
     let top = parseInt(player.style.top); 
     let left = parseInt(player.style.left);
-    if (touchendX < touchstartX - 50) {
-        console.log('Swiped Left');
-        if (left == 0) {
-            left += 600;    
-        } else {
-            left -= 100;
-        }
-        player.style.left = left.toString() + "px";
+    if (Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
+        if (touchendX < touchstartX - diff) {
+            console.log('Swiped Left');
+            if (left == 0) {
+                left += 600;    
+            } else {
+                left -= 100;
+            }
+            player.style.left = left.toString() + "px";
 
-    } 
+        } 
         
-    if (touchendX > touchstartX + 50)  {
-        console.log('Swiped Right');
-        if (left == 600) {
-            left -= 600;    
-        } else {
-            left += 100;
+        if (touchendX > touchstartX + diff)  {
+            console.log('Swiped Right');
+            if (left == 600) {
+                left -= 600;    
+            } else {
+                left += 100;
+            }
+            player.style.left = left.toString() + "px";
         }
-        player.style.left = left.toString() + "px";
-    }
+    } else {
+        if (touchendY < touchstartY - diff) {
+            console.log('Swiped Up');
+            if (top == 0) {
+                top += 600;    
+            } else {
+                top -= 100;
+            }
+            player.style.top = top.toString() + "px";
 
-    if (touchendY < touchstartY - 50) {
-        console.log('Swiped Up');
-        if (top == 0) {
-            top += 600;    
-        } else {
-            top -= 100;
-        }
-        player.style.top = top.toString() + "px";
-
-    } 
+        } 
         
-    if (touchendY > touchstartY + 50)  {
-        console.log('Swiped Down');
-        if (top == 600) {
-            top -= 600;    
-        } else {
-            top += 100;
+        if (touchendY > touchstartY + diff)  {
+            console.log('Swiped Down');
+            if (top == 600) {
+                top -= 600;    
+            } else {
+                top += 100;
+            }
+            player.style.top = top.toString() + "px";
         }
-        player.style.top = top.toString() + "px";
     }
+    
+
+    
 }
 
 document.addEventListener('touchstart', e => {
-  touchstartX = e.changedTouches[0].screenX;
-});
-
-document.addEventListener('touchend', e => {
-  touchendX = e.changedTouches[0].screenX;
-  checkDirection();
-});
-
-document.addEventListener('touchstart', e => {
+  touchstartX = e.changedTouches[0].screenX
   touchstartY = e.changedTouches[0].screenY;
 });
 
 document.addEventListener('touchend', e => {
+  touchendX = e.changedTouches[0].screenX
   touchendY = e.changedTouches[0].screenY;
   checkDirection();
 });
