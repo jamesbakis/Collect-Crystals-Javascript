@@ -74,6 +74,9 @@ let diff = 50;
 function checkDirection() {
     let top = parseInt(player.style.top); 
     let left = parseInt(player.style.left);
+    if (dead) {
+        return;
+    }
     if (Math.abs(touchendX - touchstartX) > Math.abs(touchendY - touchstartY)) {
         if (touchendX < touchstartX - diff) {
             console.log('Swiped Left');
@@ -264,15 +267,27 @@ function collision(enemy) {
         game_over.play();
         yoda_death.play();
         let animation_count = [0,0,0]
-        for (let i = 0; i < enemies.length; i++) {
-            let animation_interval = setInterval(() => {
-                if (animation_count[2] == 2) {
-                    clearInterval(animation_interval)
+        let enemy1animation = setInterval(() => {
+                if (animation_count[0] == 2) {
+                    clearInterval(enemy1animation)
                 }
-                enemies[i].src = enemy_animation[animation_count[i]]
-                animation_count[i] += 1;
+                enemies[0].src = enemy_animation[animation_count[0]]
+                animation_count[0] += 1;
             }, 750);
-        }
+        let enemy2animation = setInterval(() => {
+                if (animation_count[1] == 2) {
+                    clearInterval(enemy2animation)
+                }
+                enemies[1].src = enemy_animation[animation_count[1]]
+                animation_count[1] += 1;
+            }, 750);
+        let enemy3animation = setInterval(() => {
+                if (animation_count[2] == 2) {
+                    clearInterval(enemy3animation)
+                }
+                enemies[2].src = enemy_animation[animation_count[2]]
+                animation_count[2] += 1;
+            }, 750);
     }
 }
 
