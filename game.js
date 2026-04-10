@@ -1,30 +1,32 @@
-let enemy1 = document.getElementById("enemy1")
-let enemy2 = document.getElementById("enemy2")
-let enemy3 = document.getElementById("enemy3")
+let enemy1 = document.getElementById("enemy1");
+let enemy2 = document.getElementById("enemy2");
+let enemy3 = document.getElementById("enemy3");
 let enemies = [enemy1, enemy2, enemy3]
 let enemy_animation = ["./images/enemy_square_smaller.png", "./images/enemy_square_smaller_smaller.png", ""]
-let player = document.getElementById("player")
-let crystal = document.getElementById("crystal")
+let player = document.getElementById("player");
+let crystal = document.getElementById("crystal");
 //Enemies, player and crystal
 
-let score = document.getElementById("score")
+let score = document.getElementById("score");
 let scoreVal = 0;
 //Score object
 
-let timer = document.getElementById("timer")
+let timer = document.getElementById("timer");
 let time = 60;
 //Timer object
 
 let instruction_heading = document.getElementById("instruction_heading");
 //Instruction heading
 
-let yell = new Audio("./audio/yell.mp3")
-let game_over = new Audio("./audio/game_over.mp3")
-let yoda_death = new Audio("./audio/yoda_death.mp3")
-// AUDIO NOT WORKING
-let enable_audio = document.getElementById("enable_audio")
+let yell = new Audio("./audio/yell.mp3");
+let game_over = new Audio("./audio/game_over.mp3");
+let yoda_death = new Audio("./audio/yoda_death.mp3");
+let background_music = new Audio("./audio/background_music.mp3");
+
+// AUDIO NOT WORKINGS
+let enable_audio = document.getElementById("enable_audio");
 enable_audio.addEventListener("click", () => {
-    yoda_death.play()
+    background_music.play();
 })
 
 let interval_time = 400;
