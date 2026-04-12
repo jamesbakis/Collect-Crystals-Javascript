@@ -18,10 +18,10 @@ let time = 60;
 let instruction_heading = document.getElementById("instruction_heading");
 //Instruction heading
 
-let yell = new Audio("./audio/yell.mp3");
-let game_over = new Audio("./audio/game_over.mp3");
-let yoda_death = new Audio("./audio/yoda_death.mp3");
-let background_music = new Audio("./audio/background_music.mp3");
+let crystal_collection = new Audio("./audio/boing.mp3");
+let game_over = new Audio("./audio/8_bit_game_over.mp3");
+let death = new Audio("./audio/epic_cinematic_explosion.mp3");
+let background_music = new Audio("./audio/sneaky_rascal.mp3");
 
 // AUDIO NOT WORKINGS
 let enable_audio = document.getElementById("enable_audio");
@@ -281,7 +281,7 @@ function collision(enemy) {
         dead = true;
         score.textContent = "SCORE: " + scoreVal.toString() + "\nREFRESH PAGE";
         game_over.play();
-        yoda_death.play();
+        death.play();
         let animation_count = [0,0,0]
         let enemy1animation = setInterval(() => {
                 if (animation_count[0] == 2) {
@@ -316,7 +316,7 @@ function spawn() {
         crystal.style.left = (y * 100).toString() + "px";
         scoreVal += 1;
         score.textContent = "SCORE: " + scoreVal.toString();
-        yell.play()
+        crystal_collection.play()
     }
 }
 
