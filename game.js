@@ -1,6 +1,9 @@
 let enemy1 = document.getElementById("enemy1");
 let enemy2 = document.getElementById("enemy2");
 let enemy3 = document.getElementById("enemy3");
+let enemy_sprite = "./images/enemy_square.png";
+let player_sprite = "./images/player_square.png";
+let positions = [(0, 0), (600, 0), (300, 600), (300, 300), (300, 0)]
 let enemies = [enemy1, enemy2, enemy3]
 let enemy_animation = ["./images/enemy_square_smaller.png", "./images/enemy_square_smaller_smaller.png", ""]
 let player = document.getElementById("player");
@@ -24,58 +27,96 @@ let death = new Audio("./audio/epic_cinematic_explosion.mp3");
 let background_music = new Audio("./audio/sneaky_rascal.mp3");
 
 // AUDIO NOT WORKINGS
-let enable_audio = document.getElementById("enable_audio");
-enable_audio.addEventListener("click", () => {
-    background_music.play();
-})
+// let enable_audio = document.getElementById("enable_audio");
+// enable_audio.addEventListener("click", () => {
+//     background_music.play();
+// })
 
 let interval_time = 400;
 let colour = 0; 
 //Alternating colour of instruction heading and crystal   
-let colour_interval = setInterval(() => {colour += 1
-    if (colour % 3 == 0) {
-        instruction_heading.style.color = "red";
-        crystal.src = "./images/crystal_square_yellow.png"
-    } else if (colour % 3 == 2) {
-        instruction_heading.style.color = "green";
-        crystal.src = "./images/crystal_square_purple.png"
-    } else {
-        instruction_heading.style.color = "blue";
-        crystal.src = "./images/crystal_square.png"
-    }
+// let colour_interval = setInterval(() => {colour += 1
+//     if (colour % 3 == 0) {
+//         instruction_heading.style.color = "red";
+//         crystal.src = "./images/crystal_square_yellow.png"
+//     } else if (colour % 3 == 2) {
+//         instruction_heading.style.color = "green";
+//         crystal.src = "./images/crystal_square_purple.png"
+//     } else {
+//         instruction_heading.style.color = "blue";
+//         crystal.src = "./images/crystal_square.png"
+//     }
     
-    }, 400)
+//     }, 400)
+
+const keysToBlock = new Set(['Space', 'ArrowUp', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'PageUp', 'PageDown', 'End', 'Home']);
+
+window.addEventListener('keydown', (e) => {
+  // If the pressed key is in our list, stop it from scrolling the page
+  if (keysToBlock.has(e.code)) {
+    e.preventDefault();
+  }
+}, { passive: false }); // 'passive: false' is required to allow preventDefault()
 
 let dead = false;
-let button = document.getElementById("difficulty_button");
+// let button = document.getElementById("difficulty_button");
 //Change how quickly colours alternate
 
-button.addEventListener("click", ()=> {
-    if (interval_time == 400) {
-        interval_time = 200;
-    } else if (interval_time == 200) {
-        interval_time = 50;
+// button.addEventListener("click", ()=> {
+//     if (interval_time == 400) {
+//         interval_time = 200;
+//     } else if (interval_time == 200) {
+//         interval_time = 50;
 
-    } else if (interval_time == 50) {
-        interval_time = 25;
-    } else {
-        interval_time = 400;
-    }
+//     } else if (interval_time == 50) {
+//         interval_time = 25;
+//     } else {
+//         interval_time = 400;
+//     }
 
-    clearInterval(colour_interval)
-    colour_interval = setInterval(() => {colour += 1
-    if (colour % 3 == 0) {
-        instruction_heading.style.color = "red";
-        crystal.src = "./images/crystal_square_yellow.png"
-    } else if (colour % 3 == 2) {
-        instruction_heading.style.color = "green";
-        crystal.src = "./images/crystal_square_purple.png"
-    } else {
-        instruction_heading.style.color = "blue";
-        crystal.src = "./images/crystal_square.png"
-    }
+//     clearInterval(colour_interval)
+//     colour_interval = setInterval(() => {colour += 1
+//     if (colour % 3 == 0) {
+//         instruction_heading.style.color = "red";
+//         crystal.src = "./images/crystal_square_yellow.png"
+//     } else if (colour % 3 == 2) {
+//         instruction_heading.style.color = "green";
+//         crystal.src = "./images/crystal_square_purple.png"
+//     } else {
+//         instruction_heading.style.color = "blue";
+//         crystal.src = "./images/crystal_square.png"
+//     }
     
-    }, interval_time)
+//     }, interval_time)
+    
+// })
+
+reset_game = document.getElementById("reset_game")
+
+reset_game.addEventListener("click", ()=> {
+    document.getElementById("reset_game").style.visibility = "hidden"
+    background_music.play();
+    enemy1.src = enemy_sprite;
+    enemy2.src = enemy_sprite;
+    enemy3.src = enemy_sprite;
+    player.src = player_sprite;
+    dead = false;
+    enemy1.style.left = "0px";
+    enemy1.style.top = "0px";
+    enemy2.style.left = "600px";
+    enemy2.style.top = "0px";
+    enemy3.style.left = "300px";
+    enemy3.style.top = "600px";
+
+    player.style.left = "300px";
+    player.style.top = "300px";
+
+    crystal.style.left = "300px";
+    crystal.style.top = "0px";
+    scoreVal = 0;
+    time = 60;
+
+
     
 })
 
@@ -162,7 +203,9 @@ document.addEventListener('keydown', event=> {
         return;
     }
     if(event.key.startsWith("Arrow")) {
-        
+        if (background_music.paused) {
+            background_music.play();
+        }
         let top = parseInt(player.style.top); 
         let left = parseInt(player.style.left);
         switch(event.key) {
@@ -212,7 +255,11 @@ document.addEventListener('keydown', event=> {
     }
 })
 
-setInterval(() => {time--
+setInterval(() => {
+    if (!dead) {
+        time--
+    }
+    
     if (time < 0) {
         time = 0;
         return;
@@ -276,10 +323,13 @@ function enemyMove() {
 }
 
 function collision(enemy) {
+    
     if (enemy.style.top == player.style.top && enemy.style.left == player.style.left) {
-        player.remove();
+        document.getElementById("reset_game").style.visibility = "visible"
+        background_music.pause();
+        player.src = "";
         dead = true;
-        score.textContent = "SCORE: " + scoreVal.toString() + "\nREFRESH PAGE";
+        score.textContent = "SCORE: " + scoreVal.toString();
         game_over.play();
         death.play();
         let animation_count = [0,0,0]
